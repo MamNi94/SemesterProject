@@ -50,7 +50,7 @@ void loop() {
     if(peripheral){
 
       int rssi = peripheral.rssi();
-      RSSI_Jungfrau = "RSSI Jungfrau: "+String(rssi) + " T = "+String(currentMillis);
+      RSSI_Jungfrau = "RSSI Jungfrau: "+String(rssi) ;
       RSSI_value.writeValue(RSSI_Jungfrau);
     }
     previousScanTime = currentMillis;
