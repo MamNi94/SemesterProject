@@ -35,9 +35,9 @@ int total = 0;
 
 void setup() {
     
-    Serial.begin(9600);
-    while (!Serial);
-    Serial.println("Start");
+    //Serial.begin(9600);
+    //while (!Serial);
+    //Serial.println("Start");
 
     BLE.begin();
     IMU.begin();
@@ -67,7 +67,7 @@ void loop() {
     BLEDevice peripheral = BLE.available();
 
     while(peripheral){
-        Serial.println(peripheral.address());
+        //Serial.println(peripheral.address());
      
         if( peripheral.address() == targetAddressJungfrau){
           rssi_jungfrau = peripheral.rssi();
@@ -85,7 +85,7 @@ void loop() {
    
      }
      BLE.stopScan();
-     Serial.println("Next Iteration");
+     //Serial.println("Next Iteration");
       total+=1;
     
 
