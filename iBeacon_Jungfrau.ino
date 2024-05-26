@@ -1,9 +1,9 @@
 #include <ArduinoBLE.h>
-#include <vector>
+//#include <vector>
 
 // Function prototype
-float calculateMedian(const std::vector<int>& vec);
-std::vector<int> rssiValues; 
+//float calculateMedian(const std::vector<int>& vec);
+//std::vector<int> rssiValues; 
 
 BLEService customService("180c");
 
@@ -11,7 +11,7 @@ BLEStringCharacteristic RSSI_value("2A57", BLERead| BLENotify, 30);
 String RSSI_Breithorn = "";
 
 unsigned long previousScanTime = 50;
-const unsigned long scanInterval = 100; 
+const unsigned long scanInterval = 10; 
 
 void setup() {
 
@@ -37,31 +37,34 @@ void loop() {
   
   if (currentMillis - previousScanTime >= scanInterval) {
 
-        BLE.scanForUuid("181c");
+        BLE.scanForUuid("192a");
         BLEDevice peripheral = BLE.available();
         if (peripheral){
           int rssi = peripheral.rssi();
-            rssiValues.insert(rssiValues.begin(), rssi);
+            //rssiValues.insert(rssiValues.begin(), rssi);
 
              //Check Vector Size
-            if (rssiValues.size() > 10){
-              rssiValues.pop_back(); 
-            }
+            //if (rssiValues.size() > 10){
+            //  rssiValues.pop_back(); 
+           // }
 
             // Calculate median
-            float medianValue = calculateMedian(rssiValues);
+            //float medianValue = calculateMedian(rssiValues);
 
-            String RSSI_Breithorn = "RSSI Breithorn: "+String(medianValue)+ " T = "+String(currentMillis);
+            String RSSI_Breithorn = "RSSI Breithorn: "+String(rssi);
             RSSI_value.writeValue(RSSI_Breithorn);
         }
         previousScanTime = currentMillis;
         BLE.advertise();
+         if(!BLE.central()){
+          delay(100);
+      }
         
     }
     
 }
 
-
+/*
 float calculateMedian(const std::vector<int>& vec) {
   // Make a copy of the vector since we need to sort it
   std::vector<int> sortedVec = vec;
@@ -95,3 +98,4 @@ void insertionSort(std::vector<int>& vec) {
     vec[j + 1] = key;
   }
 }
+*/
