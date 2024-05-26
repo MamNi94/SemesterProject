@@ -27,11 +27,18 @@ const char* targetAddressEiger = "74:4d:bd:81:26:dd";
 const char* targetAddressBreithorn = "74:4d:bd:81:18:75";
 
 
+int eiger = 0;
+int jung = 0;
+int bh = 0;
+int total = 0;
+
+
 void setup() {
     
-    //Serial.begin(9600);
-    //while (!Serial);
-    //Serial.println("Start");
+    Serial.begin(9600);
+    while (!Serial);
+    Serial.println("Start");
+
     BLE.begin();
     IMU.begin();
     
@@ -48,52 +55,47 @@ void setup() {
 
     BLE.addService(customService);
 
-    //BLE.advertise();
-
-    IMU_Characteristic.writeValue(IMU_Data);
-    RSSI_Characteristic_Eiger.writeValue(RSSI_Data_Eiger);
-    RSSI_Characteristic_Eiger.writeValue(RSSI_Data_Jungfrau);
-    RSSI_Characteristic_Eiger.writeValue(RSSI_Data_Breithorn);
-
     BLE.advertise();
-   
+    
 }
 
 void loop() {
 
-  while(BLE.central()){
-  
-  unsigned long currentMillis = millis();
-
-  //Für Notificatoin Test
-  if (currentMillis - previousAdvertiseTime >= AdvertiseInterval) {
     BLE.scan();
-    delay(100);
-
+    delay(20);
+     
     BLEDevice peripheral = BLE.available();
-    
+
     while(peripheral){
-        
-        //Serial.println(peripheral.address());
-        
+        Serial.println(peripheral.address());
+     
         if( peripheral.address() == targetAddressJungfrau){
           rssi_jungfrau = peripheral.rssi();
+          jung +=1;
         }
         if( peripheral.address() == targetAddressEiger){
           rssi_eiger = peripheral.rssi();
+          eiger+=1;
         }
         if( peripheral.address() == targetAddressBreithorn){
           rssi_breithorn = peripheral.rssi();
+          bh+=1;
         }
         peripheral = BLE.available();
+   
      }
+     BLE.stopScan();
+     Serial.println("Next Iteration");
+      total+=1;
     
-    BLE.stopScan();
 
-      RSSI_Data_Eiger =  "Eiger Direct " + String(rssi_eiger) ;
-      RSSI_Data_Jungfrau =  "Jung Direct " + String(rssi_jungfrau) ;
-      RSSI_Data_Breithorn =  "Breit Direct " + String(rssi_breithorn) ;
+      //RSSI_Data_Breithorn =  String(bh)+"/"+String(total)  +"Breit Direct "+ String(rssi_breithorn)  ;
+      //RSSI_Data_Jungfrau =  String(jung)+"/"+String(total)  +"Jung Direct " + String(rssi_jungfrau);
+      //RSSI_Data_Eiger =  String(eiger)+"/"+String(total) +"Eiger Direct " + String(rssi_eiger);
 
+      RSSI_Data_Breithorn =  "Breit Direct "+ String(rssi_breithorn)  ;
+      RSSI_Data_Jungfrau =  "Jung Direct " + String(rssi_jungfrau);
+      RSSI_Data_Eiger =  "Eiger Direct " + String(rssi_eiger);
 
       float accelx, accely, accelz;
       IMU.readAcceleration(accelx, accely, accelz);
@@ -104,12 +106,14 @@ void loop() {
       RSSI_Characteristic_Jungfrau.writeValue(RSSI_Data_Jungfrau);
       RSSI_Characteristic_Breithorn.writeValue(RSSI_Data_Breithorn);
       
-      previousAdvertiseTime = currentMillis;
+
       
       
       BLE.advertise();
-  } 
-  
-  }
+      if(!BLE.central()){
+          delay(100);
+      }
+      
+
    
 }
