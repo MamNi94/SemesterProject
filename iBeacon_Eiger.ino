@@ -1,10 +1,5 @@
 
 #include <ArduinoBLE.h>
-#include <vector>
-
-// Function prototype
-float calculateMedian(const std::vector<int>& vec);
-std::vector<int> rssiValues; 
 
 BLEService customService("173d");
 
