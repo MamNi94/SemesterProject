@@ -1,14 +1,15 @@
 BLE Datalake:
 Python Script to run on a BLE capable laptop
 Connects to Central Device Enzian, Beacon Eiger, Beacon Jungfrau and Beacon Breithorn using their Mac Adress
-Recieves RSSI Values
+Recieves RSSI Values via notifications --> each BLE device has a service with a characteristic that contain the RSSI values
 Calculates Distance and Position from the recieved RSSI values using different interpolation functions
 
-There is the possibility to collect data for plotting 360 degree plots of RSSI or Position and saving the values to input arrays for the plotting scripts
-This can be done by setting "Collect_Data" = True and then using the respective key presses
+There is the possibility to collect data for plotting 360 degree plots of RSSI, RSSI fitting functions or Position and saving the values to input files for the plotting scripts
+
+This can be done by setting "collect_data" = True and then using the respective key presses
 
 BLE_Parameter_Estimation:
-Takes as input RSSI data values and gives the parameters for different interpolation functions
+Takes as input RSSI data values and gives the parameters for different interpolation functions and also plots the interpolated function
 
 BLE_Project_Visualize_RSSI_data:
 Takes 360 degree RSSI Data and creates equipotential line plots
