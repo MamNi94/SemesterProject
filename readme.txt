@@ -9,3 +9,12 @@ This can be done by setting "Collect_Data" = True and then using the respective 
 
 BLE_Parameter_Estimation:
 Takes as input RSSI data values and gives the parameters for different interpolation functions
+
+BLE_Project_Visualize_RSSI_data:
+Takes 360 degree RSSI Data and creates equipotential line plots
+
+Enzian:
+Arduino code for the Handheld device Arduino Nano BLE
+
+Ibeacon Eiger, Jungfrau, Breithorn:
+Arduino code for Beacon Devices Xiao ESP32 S3
