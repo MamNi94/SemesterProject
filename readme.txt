@@ -7,4 +7,5 @@ Calculates Distance and Position from the recieved RSSI values using different i
 There is the possibility to collect data for plotting 360 degree plots of RSSI or Position and saving the values to input arrays for the plotting scripts
 This can be done by setting "Collect_Data" = True and then using the respective key presses
 
-
+BLE_Parameter_Estimation:
+Takes as input RSSI data values and gives the parameters for different interpolation functions
