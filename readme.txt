@@ -15,6 +15,10 @@ Takes 360 degree RSSI Data and creates equipotential line plots
 
 Enzian:
 Arduino code for the Handheld device Arduino Nano BLE
+Searches for MAC adress of surrounding BLE devices and reads RSSI values of the beacon devices
+Writes RSSI values of beacon devices into string Characteristic that is then broadcasted to connected central device
 
 Ibeacon Eiger, Jungfrau, Breithorn:
 Arduino code for Beacon Devices Xiao ESP32 S3
+Scans for MAC adress of one neighboring beacon device
+Reas RSSI of beacon device and sends it to connected central device
